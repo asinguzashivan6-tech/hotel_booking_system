@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10243a">
+  <title>Marriot Hotel | Reservations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#"><span class="brand-mark">MH</span><span>Marriot<span class="brand-light"> Hotel</span></span></a><div class="topbar-right"><span class="live-dot"></span><span>Guest reservations</span><span class="avatar">MH</span></div></header>
+  <main class="page-shell">
+    <section class="welcome"><div><div class="eyebrow"><span class="eyebrow-line"></span> HOTEL OPERATIONS</div><h1>Booking management</h1><p class="subtitle">Manage guest reservations, stay details, and room assignments.</p></div><div class="welcome-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M8 21h32v18H8zM12 21v-7h24v7M15 27h7v6h-7zM26 27h9M26 33h9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 39h36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></section>
+    <section class="stats-row" aria-label="Overview"><article class="stat-card"><span class="stat-icon people-icon" aria-hidden="true">▣</span><div><span class="stat-label">TOTAL BOOKINGS</span><strong id="booking-count">—</strong></div><span class="stat-caption">in your reservation list</span></article><article class="stat-card status-card"><span class="status-indicator"></span><div><span class="stat-label">DATABASE STATUS</span><strong class="status-value">Connected</strong></div><span class="status-sub">Live reservations</span></article></section>
+    <section class="workspace-grid">
+      <aside class="form-card card"><div class="card-heading"><div class="heading-icon">＋</div><div><h2 id="form-title">Add a booking</h2><p>Enter the guest's reservation details</p></div></div>
+        <form id="booking-form" novalidate>
+          <label for="guestName">Guest name <span>*</span></label><input id="guestName" name="guestName" type="text" placeholder="e.g. Amina Nansubuga" required>
+          <label for="bookingRef">Booking reference <span>*</span></label><input id="bookingRef" name="bookingRef" type="text" placeholder="e.g. MH-2026-001" required>
+          <label for="roomType">Room type <span>*</span></label><div class="select-wrap"><select id="roomType" name="roomType" required><option value="">Select room type</option><option>Standard</option><option>Deluxe</option><option>Suite</option><option>Executive</option></select><span class="select-arrow">⌄</span></div>
+          <label for="email">Guest email <span>*</span></label><input id="email" name="email" type="email" placeholder="guest@example.com" required>
+          <label for="checkIn">Check-in date <span>*</span></label><input id="checkIn" name="checkIn" type="date" required>
+          <label for="checkOut">Check-out date <span>*</span></label><input id="checkOut" name="checkOut" type="date" required>
+          <label for="guests">Number of guests <span>*</span></label><input id="guests" name="guests" type="number" min="1" max="10" value="1" required>
+          <label for="status">Booking status <span>*</span></label><div class="select-wrap"><select id="status" name="status" required><option>Confirmed</option><option>Pending</option><option>Checked in</option><option>Checked out</option><option>Cancelled</option></select><span class="select-arrow">⌄</span></div>
+          <div class="form-actions"><button class="primary-button" id="submit-button" type="submit"><span class="button-symbol">＋</span> Add Booking</button><button class="cancel-button hidden" id="cancel-button" type="button">Cancel</button></div>
+          <p class="required-note"><span>*</span> Required fields</p>
+        </form>
+      </aside>
+      <section class="records-card card"><div class="records-header"><div><div class="records-title-line"><h2>Guest reservations</h2><span class="count-pill" id="directory-count">0</span></div><p>Browse and manage hotel bookings</p></div><div class="search-box"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.8" stroke="currentColor" stroke-width="1.6"/><path d="m13.2 13.2 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><input id="search" type="search" placeholder="Search reservations..." aria-label="Search by guest, reference or room type"></div></div>
+        <div class="table-scroll"><table><thead><tr><th>GUEST</th><th>BOOKING REF.</th><th>ROOM</th><th>DATES</th><th>GUESTS</th><th>STATUS</th><th>ACTIONS</th></tr></thead><tbody id="booking-rows"><tr><td colspan="7" class="empty-cell">Loading reservations…</td></tr></tbody></table></div>
+        <div class="table-footer"><span id="results-label">Showing 0 bookings</span><span class="footer-dot"></span><span>Reservations are saved automatically</span></div>
+      </section>
+    </section>
+    <footer class="page-footer"><span>Marriot Hotel <span class="footer-sep">·</span> Booking management</span><span>Guest reservations and room stays</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
