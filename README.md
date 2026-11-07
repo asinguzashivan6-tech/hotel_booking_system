@@ -1,4 +1,4 @@
-# Marriot Hotel Booking Management System
+# Marriott Hotel Booking Management System
 
 A complete hotel reservations CRUD app for a university database course project. Node.js, Express and Mongoose power a MongoDB database; plain HTML, CSS and vanilla JavaScript provide the responsive front end served by Express.
 

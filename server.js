@@ -18,7 +18,7 @@ app.use((req, res) => res.status(404).json({ message: 'Route not found.' }));
 mongoose.connect(MONGO_URI)
   .then(() => {
     console.log('Connected to MongoDB.');
-    app.listen(PORT, () => console.log(`Marriot Hotel booking system running at http://localhost:${PORT}`));
+    app.listen(PORT, () => console.log(`Marriott Hotel booking system running at http://localhost:${PORT}`));
   })
   .catch(error => {
     console.error('Could not connect to MongoDB:', error.message);
