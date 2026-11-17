@@ -1,4 +1,4 @@
-# Marriott Hotel Booking Management System
+# Marriot Hotel Booking Management System
 
 A complete hotel reservations CRUD app for a university database course project. Node.js, Express and Mongoose power a MongoDB database; plain HTML, CSS and vanilla JavaScript provide the responsive front end served by Express.
 
@@ -16,13 +16,17 @@ Each booking stores a guest name, unique booking reference, room type, guest ema
 
 1. Open a terminal in the `mongo-crud` project folder.
 2. Install packages with `npm install`.
-3. Copy `.env.example` to `.env`. The default MongoDB URI is `mongodb://127.0.0.1:27017/studentsdb`.
+3. Copy `.env.example` to `.env`. The default MongoDB URI is `mongodb://127.0.0.1:27017/marriothoteldb`.
 4. Start MongoDB locally, or configure your Atlas URI in `.env`.
 5. Insert eight sample bookings with `npm run seed`.
 6. Start the app with `npm run dev` (auto-restarts on code changes) or `npm start`.
 7. Open [http://localhost:3000](http://localhost:3000).
 
 The server connects to MongoDB before accepting requests. Records persist in MongoDB after the Express server restarts.
+
+## Deploy for free on Render
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step instructions to deploy this app on a Render Free web service with a MongoDB Atlas Free (M0) cluster. The included `render.yaml` blueprint sets up the service; you only need to supply the Atlas `MONGO_URI` in the Render Dashboard.
 
 ## API endpoints
 
@@ -60,6 +64,8 @@ mongo-crud/
 ├── server.js               # Express app and MongoDB connection
 ├── seed.js                 # Inserts eight demo bookings
 ├── package.json
+├── render.yaml             # Free Render web service blueprint
+├── DEPLOYMENT.md           # Free Render + MongoDB Atlas deployment guide
 ├── .env.example
 ├── .gitignore
 └── README.md
@@ -70,7 +76,7 @@ mongo-crud/
 Create a database user and allow your current IP address in Atlas Network Access. Copy the Atlas connection string, replace its password placeholder, and set `MONGO_URI` in `.env`:
 
 ```env
-MONGO_URI=mongodb+srv://username:password@cluster.example.mongodb.net/studentsdb?retryWrites=true&w=majority
+MONGO_URI=mongodb+srv://username:password@cluster.example.mongodb.net/marriothoteldb?retryWrites=true&w=majority
 PORT=3000
 ```
 
@@ -78,4 +84,4 @@ Restart the app after changing `.env`. Keep `.env` private; it is excluded from 
 
 ## View bookings in MongoDB Compass
 
-Connect Compass to `mongodb://127.0.0.1:27017` (or use your Atlas URI). Open the `studentsdb` database and its `bookings` collection. Run `npm run seed` to populate the eight demo reservations. The seed script replaces existing bookings in that collection so each run restores a predictable demo set.
+Connect Compass to `mongodb://127.0.0.1:27017` (or use your Atlas URI). Open the `marriothoteldb` database and its `bookings` collection. Run `npm run seed` to populate the eight demo reservations. The seed script replaces existing bookings in that collection so each run restores a predictable demo set.

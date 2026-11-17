@@ -15,7 +15,7 @@ const samples = [
 
 async function seed() {
   try {
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/studentsdb');
+    await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/marriothoteldb');
     // Replace the demo booking set so every seed run creates the same eight examples.
     await Booking.deleteMany({});
     const inserted = await Booking.insertMany(samples);

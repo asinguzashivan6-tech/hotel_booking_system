@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: marriot-hotel
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Set this in the Render Dashboard after creating your free MongoDB Atlas cluster.
+      - key: MONGO_URI
+        sync: false

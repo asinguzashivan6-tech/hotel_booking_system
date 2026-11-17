@@ -1,8 +1,11 @@
 {
   "name": "marriot-hotel-booking-system",
   "version": "1.0.0",
-  "description": "Marriott Hotel booking management CRUD application using Express and MongoDB.",
+  "description": "Marriot Hotel booking management CRUD application using Express and MongoDB.",
   "main": "server.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
