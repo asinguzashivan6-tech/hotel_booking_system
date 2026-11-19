@@ -4,6 +4,7 @@ const searchInput = document.querySelector('#search');
 const toast = document.querySelector('#toast');
 const submitButton = document.querySelector('#submit-button');
 const cancelButton = document.querySelector('#cancel-button');
+const seedButton = document.querySelector('#seed-button');
 const formTitle = document.querySelector('#form-title');
 let editingId = null;
 let allBookings = [];
@@ -135,6 +136,18 @@ rows.addEventListener('click', async event => {
 });
 
 cancelButton.addEventListener('click', resetForm);
+
+seedButton.addEventListener('click', async () => {
+  if (!window.confirm('Replace all bookings with the eight sample reservations?')) return;
+  seedButton.disabled = true;
+  try {
+    await request('/api/bookings/seed', { method: 'POST' });
+    showMessage('Sample bookings loaded successfully.');
+    await loadBookings();
+  } catch (error) { showMessage(error.message, true); }
+  finally { seedButton.disabled = false; }
+});
+
 let searchTimer;
 searchInput.addEventListener('input', () => {
   clearTimeout(searchTimer);

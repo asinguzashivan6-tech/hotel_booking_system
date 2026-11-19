@@ -16,7 +16,7 @@
 <body>
   <header class="topbar">
     <a class="brand" href="#">
-      <span class="brand-mark">MH</span>
+      <img class="brand-mark" src="/hotel.jpg" alt="Marriot Hotel">
       <span>Marriot<span class="brand-light"> Hotel</span></span>
     </a>
     <div class="topbar-right">
@@ -28,8 +28,8 @@
   <main class="page-shell">
     <section class="welcome">
       <div>
-        <div class="eyebrow"><span class="eyebrow-line"></span> HOTEL OPERATIONS</div>
-        <h1>Booking management</h1>
+        <div class="eyebrow"><span class="eyebrow-line"></span> DASHBOARD / HOTEL OPERATIONS</div>
+        <h1>Hotel operations</h1>
         <p class="subtitle">Manage guest reservations, stay details, and room assignments.</p>
       </div>
       <div class="welcome-icon" aria-hidden="true">
@@ -70,46 +70,57 @@
         </div>
 
         <form id="booking-form" novalidate>
-          <label for="guestName">Guest name <span>*</span></label>
-          <input id="guestName" name="guestName" type="text" placeholder="e.g. Amina Nansubuga" required>
-
-          <label for="bookingRef">Booking reference <span>*</span></label>
-          <input id="bookingRef" name="bookingRef" type="text" placeholder="e.g. MH-2026-001" required>
-
-          <label for="roomType">Room type <span>*</span></label>
-          <div class="select-wrap">
-            <select id="roomType" name="roomType" required>
-              <option value="">Select room type</option>
-              <option>Standard</option>
-              <option>Deluxe</option>
-              <option>Suite</option>
-              <option>Executive</option>
-            </select>
-            <span class="select-arrow">⌄</span>
-          </div>
-
-          <label for="email">Guest email <span>*</span></label>
-          <input id="email" name="email" type="email" placeholder="guest@example.com" required>
-
-          <label for="checkIn">Check-in date <span>*</span></label>
-          <input id="checkIn" name="checkIn" type="date" required>
-
-          <label for="checkOut">Check-out date <span>*</span></label>
-          <input id="checkOut" name="checkOut" type="date" required>
-
-          <label for="guests">Number of guests <span>*</span></label>
-          <input id="guests" name="guests" type="number" min="1" max="10" value="1" required>
-
-          <label for="status">Booking status <span>*</span></label>
-          <div class="select-wrap">
-            <select id="status" name="status" required>
-              <option>Confirmed</option>
-              <option>Pending</option>
-              <option>Checked in</option>
-              <option>Checked out</option>
-              <option>Cancelled</option>
-            </select>
-            <span class="select-arrow">⌄</span>
+          <div class="form-grid">
+            <div class="field">
+              <label for="guestName">Guest name <span>*</span></label>
+              <input id="guestName" name="guestName" type="text" placeholder="e.g. Amina Nansubuga" required>
+            </div>
+            <div class="field">
+              <label for="bookingRef">Booking reference <span>*</span></label>
+              <input id="bookingRef" name="bookingRef" type="text" placeholder="e.g. MH-2026-001" required>
+            </div>
+            <div class="field">
+              <label for="roomType">Room type <span>*</span></label>
+              <div class="select-wrap">
+                <select id="roomType" name="roomType" required>
+                  <option value="">Select room type</option>
+                  <option>Standard</option>
+                  <option>Deluxe</option>
+                  <option>Suite</option>
+                  <option>Executive</option>
+                </select>
+                <span class="select-arrow">⌄</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="email">Guest email <span>*</span></label>
+              <input id="email" name="email" type="email" placeholder="guest@example.com" required>
+            </div>
+            <div class="field">
+              <label for="checkIn">Check-in date <span>*</span></label>
+              <input id="checkIn" name="checkIn" type="date" required>
+            </div>
+            <div class="field">
+              <label for="checkOut">Check-out date <span>*</span></label>
+              <input id="checkOut" name="checkOut" type="date" required>
+            </div>
+            <div class="field">
+              <label for="guests">Number of guests <span>*</span></label>
+              <input id="guests" name="guests" type="number" min="1" max="10" value="1" required>
+            </div>
+            <div class="field">
+              <label for="status">Booking status <span>*</span></label>
+              <div class="select-wrap">
+                <select id="status" name="status" required>
+                  <option>Confirmed</option>
+                  <option>Pending</option>
+                  <option>Checked in</option>
+                  <option>Checked out</option>
+                  <option>Cancelled</option>
+                </select>
+                <span class="select-arrow">⌄</span>
+              </div>
+            </div>
           </div>
 
           <div class="form-actions">
@@ -136,6 +147,7 @@
             </svg>
             <input id="search" type="search" placeholder="Search reservations..." aria-label="Search by guest, reference or room type">
           </div>
+          <button class="seed-button" id="seed-button" type="button">Load sample data</button>
         </div>
 
         <div class="table-scroll">

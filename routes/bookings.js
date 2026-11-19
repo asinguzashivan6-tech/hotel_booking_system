@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Booking = require('../models/Booking');
+const samples = require('../models/samples');
 
 const router = express.Router();
 
@@ -10,6 +11,15 @@ function handleError(error, res) {
   console.error(error);
   return res.status(500).json({ message: 'Server error. Please try again.' });
 }
+
+// SEED: replace the current set with eight demo reservations.
+router.post('/seed', async (req, res) => {
+  try {
+    await Booking.deleteMany({});
+    const inserted = await Booking.insertMany(samples);
+    return res.status(201).json({ message: `Seeded ${inserted.length} bookings.`, count: inserted.length });
+  } catch (error) { return handleError(error, res); }
+});
 
 // CREATE: validate booking details and save a new reservation in MongoDB.
 router.post('/', async (req, res) => {

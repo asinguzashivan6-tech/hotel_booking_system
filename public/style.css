@@ -57,16 +57,13 @@ a { color: inherit; }
 }
 
 .brand-mark {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
+  flex: none;
   border-radius: 11px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(145deg, #1b4f80, #2f7fbe);
-  color: #fff;
-  font-size: 11px;
-  letter-spacing: .6px;
-  box-shadow: 0 5px 12px rgba(31, 91, 145, .25);
+  object-fit: cover;
+  border: 2px solid #2f7fbe;
+  box-shadow: 0 5px 12px rgba(31, 91, 145, .25), 0 0 0 3px #e8f1f9;
 }
 
 .brand-light {
@@ -233,7 +230,7 @@ h1 {
 
 .workspace-grid {
   display: grid;
-  grid-template-columns: 320px minmax(0, 1fr);
+  grid-template-columns: 430px minmax(0, 1fr);
   align-items: start;
   gap: 20px;
 }
@@ -281,6 +278,14 @@ h1 {
 }
 
 /* ---------- Form ---------- */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 14px;
+}
+
+.field { min-width: 0; }
 
 form label {
   display: block;
@@ -438,6 +443,22 @@ select:focus,
 }
 
 .search-box input::placeholder { color: #a5afba; }
+
+.seed-button {
+  height: 35px;
+  padding: 0 13px;
+  border: 1px solid #c9dcef;
+  border-radius: 6px;
+  background: #f4f9fd;
+  color: #2e6fa8;
+  font: 600 10px 'DM Sans', sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+
+.seed-button:hover { background: #e7f2fb; border-color: #9dbfdd; }
+.seed-button:disabled { opacity: .6; cursor: wait; }
 
 /* ---------- Table ---------- */
 
@@ -622,7 +643,7 @@ tbody tr:hover { background: #f8fbfe; }
 }
 
 @media (max-width: 900px) {
-  .workspace-grid { grid-template-columns: 280px minmax(0, 1fr); gap: 14px; }
+  .workspace-grid { grid-template-columns: 360px minmax(0, 1fr); gap: 14px; }
   .form-card { padding: 18px 16px; }
   .records-header { padding: 16px; }
   .search-box { width: 190px; }
@@ -643,6 +664,7 @@ tbody tr:hover { background: #f8fbfe; }
   .stat-card { min-height: 72px; }
   .workspace-grid { grid-template-columns: 1fr; gap: 14px; }
   .form-card { padding: 18px; }
+  .form-grid { grid-template-columns: 1fr; }
   .records-header { align-items: flex-start; flex-direction: column; }
   .search-box { width: 100%; }
   .page-footer { gap: 8px; line-height: 1.5; }
