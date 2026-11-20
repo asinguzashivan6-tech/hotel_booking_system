@@ -1,39 +1,61 @@
-require('dotenv').config();
-const express = require('express');
+'use strict';
+
 const mongoose = require('mongoose');
-const app = require('../app');
+const { createApp } = require('../app');
 
-const MONGO_URI = process.env.MONGO_URI;
-let connectionPromise = null;
-
-async function connectToDatabase() {
-  if (mongoose.connection.readyState === 1) return;
-  if (!MONGO_URI) throw new Error('MONGO_URI is not set.');
-  if (!connectionPromise) {
-    connectionPromise = mongoose.connect(MONGO_URI).catch(error => {
-      connectionPromise = null;
-      throw error;
-    });
-  }
-  await connectionPromise;
+// Cache the Express app and MongoDB connection across serverless invocations.
+let cached = global.__hotelBookingCached;
+if (!cached) {
+  cached = global.__hotelBookingCached = { app: null, conn: null, promise: null };
 }
 
-const handler = express();
+async function connectToDatabase() {
+  if (cached.conn && mongoose.connection.readyState === 1) {
+    return cached.conn;
+  }
 
-handler.use(async (req, res, next) => {
+  const uri = process.env.MONGO_URI;
+  if (!uri) {
+    throw new Error('MONGO_URI environment variable is not set');
+  }
+
+  if (!cached.promise) {
+    cached.promise = mongoose
+      .connect(uri, {
+        // Sensible defaults for serverless environments
+        bufferCommands: false
+      })
+      .then((mongooseInstance) => {
+        cached.conn = mongooseInstance.connection;
+        return cached.conn;
+      })
+      .catch((error) => {
+        cached.promise = null; // allow retry on next request
+        throw error;
+      });
+  }
+
+  return cached.promise;
+}
+
+module.exports = async (req, res) => {
   try {
     await connectToDatabase();
-    next();
+
+    if (!cached.app) {
+      cached.app = createApp();
+    }
+
+    return cached.app(req, res);
   } catch (error) {
-    next(error);
+    console.error('Serverless handler error:', error);
+    const status = error.status || error.statusCode || 500;
+    return res.status(status).json({
+      success: false,
+      message:
+        error.message ||
+        'Internal server error. Check server logs and MONGO_URI configuration.',
+      code: error.code || 'SERVERLESS_ERROR'
+    });
   }
-});
-
-handler.use(app);
-
-handler.use((error, req, res, next) => {
-  console.error(error);
-  res.status(500).json({ message: 'Database connection failed.' });
-});
-
-module.exports = handler;
+};

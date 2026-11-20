@@ -1,187 +1,330 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10243a">
-  <meta name="description" content="Marriot Hotel reservation management dashboard">
-  <title>Marriot Hotel | Reservations</title>
-  <link rel="icon" href="/hotel.jpg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
-  <script src="/app.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Marriott Hotel Management System (MHMS) - reservations, rooms, guests, billing, housekeeping and staff management.">
+  <title>Marriott Hotel Management System</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#">
-      <img class="brand-mark" src="/hotel.jpg" alt="Marriot Hotel">
-      <span>Marriot<span class="brand-light"> Hotel</span></span>
-    </a>
-    <div class="topbar-right">
-      <span class="topbar-label">Guest reservations</span>
-      <img class="avatar" src="/hotel.jpg" alt="Marriot Hotel">
-    </div>
-  </header>
-
-  <main class="page-shell">
-    <section class="welcome">
-      <div>
-        <div class="eyebrow"><span class="eyebrow-line"></span> DASHBOARD / HOTEL OPERATIONS</div>
-        <h1>Hotel operations</h1>
-        <p class="subtitle">Manage guest reservations, stay details, and room assignments.</p>
-      </div>
-      <div class="welcome-icon" aria-hidden="true">
-        <svg viewBox="0 0 48 48" fill="none">
-          <path d="M8 21h32v18H8zM12 21v-7h24v7M15 27h7v6h-7zM26 27h9M26 33h9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M6 39h36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
-    </section>
-
-    <section class="stats-row" aria-label="Overview">
-      <article class="stat-card">
-        <span class="stat-icon people-icon" aria-hidden="true">▣</span>
-        <div>
-          <span class="stat-label">TOTAL BOOKINGS</span>
-          <strong id="booking-count">—</strong>
-        </div>
-        <span class="stat-caption">in your reservation list</span>
-      </article>
-      <article class="stat-card status-card">
-        <span class="status-icon" aria-hidden="true">✓</span>
-        <div>
-          <span class="stat-label">DATABASE STATUS</span>
-          <strong class="status-value">Connected</strong>
-        </div>
-        <span class="status-sub">Live reservations</span>
-      </article>
-    </section>
-
-    <section class="workspace-grid">
-      <aside class="form-card card">
-        <div class="card-heading">
-          <div class="heading-icon">＋</div>
-          <div>
-            <h2 id="form-title">Add a booking</h2>
-            <p>Enter the guest's reservation details</p>
-          </div>
-        </div>
-
-        <form id="booking-form" novalidate>
-          <div class="form-grid">
-            <div class="field">
-              <label for="guestName">Guest name <span>*</span></label>
-              <input id="guestName" name="guestName" type="text" placeholder="e.g. Amina Nansubuga" required>
-            </div>
-            <div class="field">
-              <label for="bookingRef">Booking reference <span>*</span></label>
-              <input id="bookingRef" name="bookingRef" type="text" placeholder="e.g. MH-2026-001" required>
-            </div>
-            <div class="field">
-              <label for="roomType">Room type <span>*</span></label>
-              <div class="select-wrap">
-                <select id="roomType" name="roomType" required>
-                  <option value="">Select room type</option>
-                  <option>Standard</option>
-                  <option>Deluxe</option>
-                  <option>Suite</option>
-                  <option>Executive</option>
-                </select>
-                <span class="select-arrow">⌄</span>
-              </div>
-            </div>
-            <div class="field">
-              <label for="email">Guest email <span>*</span></label>
-              <input id="email" name="email" type="email" placeholder="guest@example.com" required>
-            </div>
-            <div class="field">
-              <label for="checkIn">Check-in date <span>*</span></label>
-              <input id="checkIn" name="checkIn" type="date" required>
-            </div>
-            <div class="field">
-              <label for="checkOut">Check-out date <span>*</span></label>
-              <input id="checkOut" name="checkOut" type="date" required>
-            </div>
-            <div class="field">
-              <label for="guests">Number of guests <span>*</span></label>
-              <input id="guests" name="guests" type="number" min="1" max="10" value="1" required>
-            </div>
-            <div class="field">
-              <label for="status">Booking status <span>*</span></label>
-              <div class="select-wrap">
-                <select id="status" name="status" required>
-                  <option>Confirmed</option>
-                  <option>Pending</option>
-                  <option>Checked in</option>
-                  <option>Checked out</option>
-                  <option>Cancelled</option>
-                </select>
-                <span class="select-arrow">⌄</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <button class="primary-button" id="submit-button" type="submit"><span class="button-symbol">＋</span> Add Booking</button>
-            <button class="cancel-button hidden" id="cancel-button" type="button">Cancel</button>
-          </div>
-          <p class="required-note"><span>*</span> Required fields</p>
-        </form>
-      </aside>
-
-      <section class="records-card card">
-        <div class="records-header">
-          <div>
-            <div class="records-title-line">
-              <h2>Guest reservations</h2>
-              <span class="count-pill" id="directory-count">0</span>
-            </div>
-            <p>Browse and manage hotel bookings</p>
-          </div>
-          <div class="search-box">
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <circle cx="8.8" cy="8.8" r="5.8" stroke="currentColor" stroke-width="1.6"/>
-              <path d="m13.2 13.2 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-            <input id="search" type="search" placeholder="Search reservations..." aria-label="Search by guest, reference or room type">
-          </div>
-          <button class="seed-button" id="seed-button" type="button">Load sample data</button>
-        </div>
-
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>GUEST</th>
-                <th>BOOKING REF.</th>
-                <th>ROOM</th>
-                <th>DATES</th>
-                <th>GUESTS</th>
-                <th>STATUS</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody id="booking-rows">
-              <tr><td colspan="7" class="empty-cell">Loading reservations…</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="table-footer">
-          <span id="results-label">Showing 0 bookings</span>
-          <span>Reservations are saved automatically</span>
-        </div>
-      </section>
-    </section>
-
-    <footer class="page-footer">
-      <span>Marriot Hotel <span class="footer-sep">·</span> Booking management</span>
-      <span>Guest reservations and room stays</span>
-    </footer>
-  </main>
-
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div id="loginView" class="login-view">
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="brand-mark" aria-hidden="true">MH</div>
+        <div>
+          <p class="eyebrow">Simulation Project</p>
+          <h1>Marriott Hotel Management System</h1>
+          <p class="muted">MHMS web platform for reservations, rooms, guests, billing, housekeeping, and staff.</p>
+        </div>
+      </div>
+      <form id="loginForm" class="stack" novalidate>
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" autocomplete="username" placeholder="admin@marriott.test" required>
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="btn btn-primary full">Sign in</button>
+      </form>
+      <div class="login-hint">
+        <p><strong>Demo accounts (after seeding):</strong></p>
+        <ul>
+          <li>Admin: <code>admin@marriott.test</code> / <code>Admin@123</code></li>
+          <li>Front Desk: <code>frontdesk@marriott.test</code> / <code>Front@123</code></li>
+          <li>Housekeeping: <code>housekeeping@marriott.test</code> / <code>House@123</code></li>
+        </ul>
+        <p class="muted small">Academic simulation only. Not an official Marriott product.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="appView" class="app-view" hidden>
+    <header class="app-header">
+      <div class="shell header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">MH</div>
+          <div class="brand-copy">
+            <p class="eyebrow">Marriott Hotel (Simulation)</p>
+            <h1>Marriott Hotel Management System</h1>
+            <p class="brand-subtitle">Reservations · Rooms · Guests · Billing · Housekeeping · Staff</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span id="currentUserBadge" class="api-pill">Signed in</span>
+          <button type="button" class="btn btn-ghost" id="refreshBtn">Refresh</button>
+          <button type="button" class="btn btn-danger" id="logoutBtn">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="tab-nav" aria-label="Main sections">
+      <div class="shell nav-inner" id="navTabs">
+        <button type="button" class="tab-btn active" data-tab="dashboard" data-roles="admin,frontdesk,housekeeping">Dashboard</button>
+        <button type="button" class="tab-btn" data-tab="roomTypes" data-roles="admin,frontdesk,housekeeping">Room Types</button>
+        <button type="button" class="tab-btn" data-tab="rooms" data-roles="admin,frontdesk,housekeeping">Rooms</button>
+        <button type="button" class="tab-btn" data-tab="guests" data-roles="admin,frontdesk">Guests</button>
+        <button type="button" class="tab-btn" data-tab="reservations" data-roles="admin,frontdesk">Reservations</button>
+        <button type="button" class="tab-btn" data-tab="payments" data-roles="admin,frontdesk">Billing</button>
+        <button type="button" class="tab-btn" data-tab="housekeeping" data-roles="admin,frontdesk,housekeeping">Housekeeping</button>
+        <button type="button" class="tab-btn" data-tab="users" data-roles="admin">Staff</button>
+        <button type="button" class="tab-btn" data-tab="feedback" data-roles="admin,frontdesk">Feedback</button>
+      </div>
+    </nav>
+
+    <main class="page">
+      <div class="shell">
+        <!-- Dashboard -->
+        <section id="dashboard" class="tab-panel active">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Overview</p>
+              <h2>Operations Dashboard</h2>
+              <p class="muted" id="generatedAt">Live summary from API</p>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <article class="stat-card"><span class="stat-icon blue">📅</span><div><span class="stat-label">Reservations</span><strong class="stat-value" id="statReservations">0</strong><span class="stat-meta">Total records</span></div></article>
+            <article class="stat-card"><span class="stat-icon green">🏨</span><div><span class="stat-label">Occupancy</span><strong class="stat-value" id="statOccupancy">0%</strong><span class="stat-meta">Occupied rooms</span></div></article>
+            <article class="stat-card"><span class="stat-icon amber">💳</span><div><span class="stat-label">Paid Revenue</span><strong class="stat-value" id="statPaidRevenue">$0.00</strong><span class="stat-meta">Recorded payments</span></div></article>
+            <article class="stat-card"><span class="stat-icon violet">🧹</span><div><span class="stat-label">Housekeeping Tasks</span><strong class="stat-value" id="statTasks">0</strong><span class="stat-meta">All tasks</span></div></article>
+          </div>
+          <div class="dashboard-grid">
+            <article class="card panel-card">
+              <div class="panel-head"><h3>Today's Operations</h3><p class="muted">Arrivals, departures, in-house</p></div>
+              <div id="todayBreakdown" class="breakdown"></div>
+            </article>
+            <article class="card panel-card">
+              <div class="panel-head"><h3>Room Status</h3><p class="muted">Availability and housekeeping state</p></div>
+              <div id="roomStatusBreakdown" class="breakdown"></div>
+            </article>
+            <article class="card panel-card wide">
+              <div class="panel-head"><h3>Recent Reservations</h3></div>
+              <div class="table-scroll"><table class="data-table"><thead><tr><th>Code</th><th>Guest</th><th>Room</th><th>Dates</th><th>Status</th><th>Total</th></tr></thead><tbody id="recentReservationsBody"></tbody></table></div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Room Types -->
+        <section id="roomTypes" class="tab-panel">
+          <div class="section-heading"><div><p class="section-kicker">Configuration</p><h2>Room Types</h2><p class="muted">Manage room categories, rates, capacity, amenities, and bed types.</p></div></div>
+          <article class="card form-card" data-write-roles="admin">
+            <div class="card-heading"><div><h3 id="roomTypeFormTitle">Add room type</h3></div><button type="button" class="btn btn-ghost" id="cancelRoomTypeEdit" hidden>Cancel edit</button></div>
+            <form id="roomTypeForm" class="form-grid">
+              <input type="hidden" id="roomTypeId">
+              <div class="field"><label for="roomTypeName">Name *</label><input id="roomTypeName" required placeholder="e.g. Deluxe Room"></div>
+              <div class="field"><label for="roomTypeBed">Bed type</label><input id="roomTypeBed" placeholder="e.g. King"></div>
+              <div class="field"><label for="roomTypePrice">Price per night (USD) *</label><input id="roomTypePrice" type="number" min="0.01" step="0.01" required></div>
+              <div class="field"><label for="roomTypeCapacity">Capacity *</label><input id="roomTypeCapacity" type="number" min="1" max="20" required></div>
+              <div class="field full"><label for="roomTypeAmenities">Amenities (comma-separated)</label><input id="roomTypeAmenities" placeholder="Wi-Fi, TV, Mini Bar"></div>
+              <div class="field full"><label for="roomTypeDescription">Description</label><input id="roomTypeDescription" placeholder="Description"></div>
+              <div class="form-actions full"><button type="submit" class="btn btn-primary" id="roomTypeSubmit">Add room type</button></div>
+            </form>
+          </article>
+          <article class="card panel-card">
+            <div class="card-heading table-heading"><div><h3>Room Types <span class="count-chip" id="roomTypeCount">0</span></h3></div><div class="toolbar"><input id="roomTypeSearch" type="search" placeholder="Search room types"></div></div>
+            <div class="table-scroll"><table class="data-table"><thead><tr><th>Name</th><th>Rate</th><th>Capacity</th><th>Bed</th><th>Amenities</th><th data-write-roles="admin">Actions</th></tr></thead><tbody id="roomTypesBody"></tbody></table></div>
+            <p class="empty-state" id="roomTypesEmpty" hidden>No room types found.</p>
+          </article>
+        </section>
+
+        <!-- Rooms -->
+        <section id="rooms" class="tab-panel">
+          <div class="section-heading"><div><p class="section-kicker">Inventory</p><h2>Rooms</h2><p class="muted">Manage rooms, floor, type, and status (available, occupied, dirty, maintenance).</p></div></div>
+          <article class="card form-card" data-write-roles="admin,frontdesk,housekeeping">
+            <div class="card-heading"><div><h3 id="roomFormTitle">Add room</h3><p class="muted small">Admin can create/delete rooms. Staff can update room status/notes as permitted.</p></div><button type="button" class="btn btn-ghost" id="cancelRoomEdit" hidden>Cancel edit</button></div>
+            <form id="roomForm" class="form-grid">
+              <input type="hidden" id="roomId">
+              <div class="field"><label for="roomNumber">Room number *</label><input id="roomNumber" required placeholder="e.g. 305"></div>
+              <div class="field"><label for="roomFloor">Floor</label><input id="roomFloor" type="number" min="0" max="500" value="0"></div>
+              <div class="field"><label for="roomRoomType">Room type *</label><select id="roomRoomType" required><option value="">Select room type</option></select></div>
+              <div class="field"><label for="roomStatus">Status</label><select id="roomStatus"><option value="available">Available</option><option value="occupied">Occupied</option><option value="dirty">Dirty</option><option value="maintenance">Maintenance</option></select></div>
+              <div class="field full"><label for="roomNotes">Notes</label><input id="roomNotes" placeholder="Room notes"></div>
+              <div class="form-actions full"><button type="submit" class="btn btn-primary" id="roomSubmit">Save room</button></div>
+            </form>
+          </article>
+          <article class="card panel-card">
+            <div class="card-heading table-heading"><div><h3>Rooms <span class="count-chip" id="roomCount">0</span></h3></div><div class="toolbar"><input id="roomSearch" type="search" placeholder="Search rooms"><select id="roomStatusFilter"><option value="">All statuses</option><option value="available">Available</option><option value="occupied">Occupied</option><option value="dirty">Dirty</option><option value="maintenance">Maintenance</option></select></div></div>
+            <div class="table-scroll"><table class="data-table"><thead><tr><th>Room</th><th>Type</th><th>Rate</th><th>Capacity</th><th>Floor</th><th>Status</th><th data-write-roles="admin,frontdesk,housekeeping">Actions</th></tr></thead><tbody id="roomsBody"></tbody></table></div>
+            <p class="empty-state" id="roomsEmpty" hidden>No rooms found.</p>
+          </article>
+        </section>
+
+        <!-- Guests -->
+        <section id="guests" class="tab-panel">
+          <div class="section-heading"><div><p class="section-kicker">Profiles</p><h2>Guests</h2><p class="muted">Manage guest records and contact/identity information.</p></div></div>
+          <article class="card form-card">
+            <div class="card-heading"><div><h3 id="guestFormTitle">Add guest</h3></div><button type="button" class="btn btn-ghost" id="cancelGuestEdit" hidden>Cancel edit</button></div>
+            <form id="guestForm" class="form-grid">
+              <input type="hidden" id="guestId">
+              <div class="field"><label for="guestFirstName">First name *</label><input id="guestFirstName" required></div>
+              <div class="field"><label for="guestLastName">Last name *</label><input id="guestLastName" required></div>
+              <div class="field"><label for="guestEmail">Email</label><input id="guestEmail" type="email"></div>
+              <div class="field"><label for="guestPhone">Phone</label><input id="guestPhone"></div>
+              <div class="field"><label for="guestIdType">ID type</label><input id="guestIdType" placeholder="Passport / National ID"></div>
+              <div class="field"><label for="guestIdNumber">ID number</label><input id="guestIdNumber"></div>
+              <div class="field"><label for="guestNationality">Nationality</label><input id="guestNationality"></div>
+              <div class="field"><label for="guestAddress">Address</label><input id="guestAddress"></div>
+              <div class="form-actions full"><button type="submit" class="btn btn-primary" id="guestSubmit">Save guest</button></div>
+            </form>
+          </article>
+          <article class="card panel-card">
+            <div class="card-heading table-heading"><div><h3>Guests <span class="count-chip" id="guestCount">0</span></h3></div><div class="toolbar"><input id="guestSearch" type="search" placeholder="Search guests"></div></div>
+            <div class="table-scroll"><table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>ID</th><th>Nationality</th><th>Actions</th></tr></thead><tbody id="guestsBody"></tbody></table></div>
+            <p class="empty-state" id="guestsEmpty" hidden>No guests found.</p>
+          </article>
+        </section>
+
+        <!-- Reservations -->
+        <section id="reservations" class="tab-panel">
+          <div class="section-heading"><div><p class="section-kicker">Front Desk</p><h2>Reservations</h2><p class="muted">Create reservations, prevent double booking, manage check-in/check-out, and service charges.</p></div></div>
+          <article class="card form-card">
+            <div class="card-heading"><div><h3 id="reservationFormTitle">New reservation</h3><p class="muted small">Totals are calculated server-side (room rate × nights + services + tax).</p></div><button type="button" class="btn btn-ghost" id="cancelReservationEdit" hidden>Cancel edit</button></div>
+            <form id="reservationForm" class="form-grid">
+              <input type="hidden" id="reservationId">
+              <div class="field"><label for="reservationGuest">Guest *</label><select id="reservationGuest" required><option value="">Select guest</option></select></div>
+              <div class="field"><label for="reservationRoom">Room *</label><select id="reservationRoom" required><option value="">Select room</option></select></div>
+              <div class="field"><label for="reservationCheckIn">Check-in *</label><input id="reservationCheckIn" type="date" required></div>
+              <div class="field"><label for="reservationCheckOut">Check-out *</label><input id="reservationCheckOut" type="date" required></div>
+              <div class="field"><label for="reservationAdults">Adults *</label><input id="reservationAdults" type="number" min="1" max="20" value="1" required></div>
+              <div class="field"><label for="reservationChildren">Children</label><input id="reservationChildren" type="number" min="0" max="20" value="0"></div>
+              <div class="field"><label for="reservationStatus">Status</label><select id="reservationStatus"><option value="booked">Booked</option><option value="checked-in">Checked-in</option><option value="checked-out">Checked-out</option><option value="cancelled">Cancelled</option></select></div>
+              <div class="field"><label for="reservationNotes">Notes</label><input id="reservationNotes" placeholder="Special requests / notes"></div>
+              <div class="form-actions full"><button type="submit" class="btn btn-primary" id="reservationSubmit">Create reservation</button></div>
+            </form>
+          </article>
+          <article class="card panel-card" id="serviceChargeCard" hidden>
+            <div class="card-heading"><div><h3>Service Charges</h3><p class="muted small">Add/remove charges for the selected reservation (booked/checked-in only).</p></div></div>
+            <form id="serviceForm" class="form-grid compact-grid">
+              <input type="hidden" id="serviceReservationId">
+              <div class="field"><label for="serviceName">Service name *</label><input id="serviceName" required placeholder="Laundry"></div>
+              <div class="field"><label for="serviceQty">Qty *</label><input id="serviceQty" type="number" min="1" value="1" required></div>
+              <div class="field"><label for="serviceUnitPrice">Unit price *</label><input id="serviceUnitPrice" type="number" min="0" step="0.01" required></div>
+              <div class="field"><label>&nbsp;</label><button type="submit" class="btn btn-primary">Add charge</button></div>
+            </form>
+            <div class="table-scroll"><table class="data-table"><thead><tr><th>Service</th><th>Qty</th><th>Unit</th><th>Amount</th><th>Actions</th></tr></thead><tbody id="servicesBody"></tbody></table></div>
+          </article>
+          <article class="card panel-card">
+            <div class="card-heading table-heading"><div><h3>Reservations <span class="count-chip" id="reservationCount">0</span></h3></div><div class="toolbar"><input id="reservationSearch" type="search" placeholder="Search code, guest, room"><select id="reservationStatusFilter"><option value="">All statuses</option><option value="booked">Booked</option><option value="checked-in">Checked-in</option><option value="checked-out">Checked-out</option><option value="cancelled">Cancelled</option></select></div></div>
+            <div class="table-scroll"><table class="data-table"><thead><tr><th>Code</th><th>Guest</th><th>Room</th><th>Dates</th><th>Guests</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody id="reservationsBody"></tbody></table></div>
+            <p class="empty-state" id="reservationsEmpty" hidden>No reservations found.</p>
+          </article>
+        </section>
+
+        <!-- Payments -->
+        <section id="payments" class="tab-panel">
+          <div class="section-heading"><div><p class="section-kicker">Billing</p><h2>Invoices & Payments</h2><p class="muted">Generate and manage invoices/payments for reservations.</p></div></div>
+          <article class="card form-card">
+            <div class="card-heading"><div><h3 id="paymentFormTitle">Create payment / invoice</h3></div><button type="button" class="btn btn-ghost" id="cancelPaymentEdit" hidden>Cancel edit</button></div>
+            <form id="paymentForm" class="form-grid">
+              <input type="hidden" id="paymentId">
+              <div class="field"><label for="paymentReservation">Reservation *</label><select id="paymentReservation" required><option value="">Select reservation</option></select></div>
+              <div class="field"><label for="paymentAmount">Amount (USD) *</label><input id="paymentAmount" type="number" min="0" step="0.01" required></div>
+              <div class="field"><label for="paymentMethod">Method</label><select id="paymentMethod"><option value="cash">Cash</option><option value="card">Card</option><option value="transfer">Transfer</option></select></div>
+              <div class="field"><label for="paymentStatus">Status</label><select id="paymentStatus"><option value="pending">Pending</option><option value="paid">Paid</option><option value="void">Void</option></select></div>
+              <div class="field full"><label for="paymentNotes">Notes</label><input id="paymentNotes" placeholder="Payment notes"></div>
+              <div class="form-actions full"><button type="submit" class="btn btn-primary" id="paymentSubmit">Save payment</button></div>
+            </form>
+          </article>
+          <article class="card panel-card">
+            <div class="card-heading table-heading"><div><h3>Payments <span class="count-chip" id="paymentCount">0</span></h3></div><div class="toolbar"><input id="paymentSearch" type="search" placeholder="Search invoice/status/method"></div></div>
+            <div class="table-scroll"><table class="data-table"><thead><tr><th>Invoice</th><th>Reservation</th><th>Amount</th><th>Method</th><th>Status</th><th>Paid at</th><th>Actions</th></tr></thead><tbody id="paymentsBody"></tbody></table></div>
+            <p class="empty-state" id="paymentsEmpty" hidden>No payments found.</p>
+          </article>
+        </section>
+
+        <!-- Housekeeping -->
+        <section id="housekeeping" class="tab-panel">
+          <div class="section-heading"><div><p class="section-kicker">Operations</p><h2>Housekeeping</h2><p class="muted">Track cleaning, inspection, and maintenance tasks. Completing cleaning/inspection can mark rooms available.</p></div></div>
+          <article class="card form-card">
+            <div class="card-heading"><div><h3 id="taskFormTitle">Create task</h3></div><button type="button" class="btn btn-ghost" id="cancelTaskEdit" hidden>Cancel edit</button></div>
+            <form id="taskForm" class="form-grid">
+              <input type="hidden" id="taskId">
+              <div class="field"><label for="taskRoom">Room *</label><select id="taskRoom" required><option value="">Select room</option></select></div>
+              <div class="field"><label for="taskType">Task type</label><select id="taskType"><option value="cleaning">Cleaning</option><option value="inspection">Inspection</option><option value="maintenance">Maintenance</option></select></div>
+              <div class="field"><label for="taskStatus">Status</label><select id="taskStatus"><option value="pending">Pending</option><option value="in-progress">In progress</option><option value="done">Done</option></select></div>
+              <div class="field"><label for="taskAssignee">Assigned to (staff user ID/email optional)</label><select id="taskAssignee"><option value="">Unassigned</option></select></div>
+              <div class="field full"><label for="taskNotes">Notes</label><input id="taskNotes" placeholder="Task notes"></div>
+              <div class="form-actions full"><button type="submit" class="btn btn-primary" id="taskSubmit">Save task</button></div>
+            </form>
+          </article>
+          <article class="card panel-card">
+            <div class="card-heading table-heading"><div><h3>Housekeeping Tasks <span class="count-chip" id="taskCount">0</span></h3></div><div class="toolbar"><input id="taskSearch" type="search" placeholder="Search tasks"><select id="taskStatusFilter"><option value="">All statuses</option><option value="pending">Pending</option><option value="in-progress">In progress</option><option value="done">Done</option></select></div></div>
+            <div class="table-scroll"><table class="data-table"><thead><tr><th>Room</th><th>Type</th><th>Status</th><th>Assigned to</th><th>Notes</th><th>Actions</th></tr></thead><tbody id="tasksBody"></tbody></table></div>
+            <p class="empty-state" id="tasksEmpty" hidden>No housekeeping tasks found.</p>
+          </article>
+        </section>
+
+        <!-- Users/Staff -->
+        <section id="users" class="tab-panel">
+          <div class="section-heading"><div><p class="section-kicker">Administration</p><h2>Staff Users</h2><p class="muted">Manage staff accounts and roles (admin, frontdesk, housekeeping).</p></div></div>
+          <article class="card form-card">
+            <div class="card-heading"><div><h3 id="userFormTitle">Create staff account</h3></div><button type="button" class="btn btn-ghost" id="cancelUserEdit" hidden>Cancel edit</button></div>
+            <form id="userForm" class="form-grid">
+              <input type="hidden" id="userId">
+              <div class="field"><label for="userFullName">Full name *</label><input id="userFullName" required></div>
+              <div class="field"><label for="userEmail">Email *</label><input id="userEmail" type="email" required></div>
+              <div class="field"><label for="userPhone">Phone</label><input id="userPhone"></div>
+              <div class="field"><label for="userRole">Role *</label><select id="userRole" required><option value="admin">Admin</option><option value="frontdesk">Front Desk</option><option value="housekeeping">Housekeeping</option></select></div>
+              <div class="field"><label for="userPassword">Password <span class="muted small" id="userPasswordHint">(required for new user)</span></label><input id="userPassword" type="password" minlength="6" placeholder="Min 6 characters"></div>
+              <div class="field"><label for="userIsActive">Active</label><select id="userIsActive"><option value="true">Active</option><option value="false">Inactive</option></select></div>
+              <div class="form-actions full"><button type="submit" class="btn btn-primary" id="userSubmit">Save user</button></div>
+            </form>
+          </article>
+          <article class="card panel-card">
+            <div class="card-heading table-heading"><div><h3>Staff Accounts <span class="count-chip" id="userCount">0</span></h3></div><div class="toolbar"><input id="userSearch" type="search" placeholder="Search staff"></div></div>
+            <div class="table-scroll"><table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead><tbody id="usersBody"></tbody></table></div>
+            <p class="empty-state" id="usersEmpty" hidden>No staff users found.</p>
+          </article>
+        </section>
+
+        <!-- Feedback -->
+        <section id="feedback" class="tab-panel">
+          <div class="section-heading"><div><p class="section-kicker">Guest Experience</p><h2>Feedback</h2><p class="muted">Record and review guest feedback linked to reservations.</p></div></div>
+          <article class="card form-card">
+            <div class="card-heading"><div><h3 id="feedbackFormTitle">Add feedback</h3></div><button type="button" class="btn btn-ghost" id="cancelFeedbackEdit" hidden>Cancel edit</button></div>
+            <form id="feedbackForm" class="form-grid">
+              <input type="hidden" id="feedbackId">
+              <div class="field"><label for="feedbackReservation">Reservation *</label><select id="feedbackReservation" required><option value="">Select reservation</option></select></div>
+              <div class="field"><label for="feedbackGuest">Guest *</label><select id="feedbackGuest" required><option value="">Select guest</option></select></div>
+              <div class="field"><label for="feedbackRating">Rating (1-5) *</label><input id="feedbackRating" type="number" min="1" max="5" value="5" required></div>
+              <div class="field full"><label for="feedbackComment">Comment</label><input id="feedbackComment" placeholder="Guest comment"></div>
+              <div class="form-actions full"><button type="submit" class="btn btn-primary" id="feedbackSubmit">Save feedback</button></div>
+            </form>
+          </article>
+          <article class="card panel-card">
+            <div class="card-heading table-heading"><div><h3>Feedback Records <span class="count-chip" id="feedbackCount">0</span></h3></div></div>
+            <div class="table-scroll"><table class="data-table"><thead><tr><th>Reservation</th><th>Guest</th><th>Rating</th><th>Comment</th><th>Actions</th></tr></thead><tbody id="feedbackBody"></tbody></table></div>
+            <p class="empty-state" id="feedbackEmpty" hidden>No feedback records found.</p>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <div class="shell footer-inner">
+        <span>Marriott Hotel Management System (MHMS) · Node.js, Express, MongoDB</span>
+        <span>Academic simulation project · CRUD · Auth/Roles · Reservations · Billing · Housekeeping</span>
+      </div>
+    </footer>
+  </div>
+
+  <div id="confirmModal" class="modal" hidden>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <div class="modal-icon" aria-hidden="true">!</div>
+      <h3 id="confirmTitle">Please confirm</h3>
+      <p id="confirmMessage"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="confirmCancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmYes">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>

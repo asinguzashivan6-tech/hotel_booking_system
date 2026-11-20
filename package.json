@@ -1,23 +1,41 @@
 {
-  "name": "marriot-hotel-booking-system",
-  "version": "1.0.0",
-  "description": "Marriot Hotel booking management CRUD application using Express and MongoDB.",
+  "name": "marriott-hotel-management-system",
+  "version": "3.0.0",
+  "description": "Marriott Hotel Management System (MHMS) - a professional hotel management web app with MongoDB, full CRUD, reservations, billing, housekeeping, staff roles, REST API, and deployment support",
   "main": "server.js",
-  "engines": {
-    "node": ">=20"
-  },
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "test": "node --test",
+    "test:watch": "node --test --watch"
+  },
+  "keywords": [
+    "hotel-management",
+    "marriott",
+    "mhms",
+    "crud",
+    "rest-api",
+    "nodejs",
+    "express",
+    "mongodb",
+    "mongoose",
+    "jwt"
+  ],
+  "author": "Marriott Hotel Management System Project Team",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mongoose": "^8.9.5"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.4"
   }
 }
