@@ -164,7 +164,7 @@ function renderDashboard() {
 
   const rows = d.recentReservations || [];
   $('recentReservationsBody').innerHTML = rows.length ? rows.map((r) => `<tr>
-    <td><strong>${esc(r.reservationCode)}</strong></td>
+    <td><strong class="mono">${esc(r.reservationCode)}</strong></td>
     <td>${esc(guestName(r.guest))}</td>
     <td>${esc(r.room?.roomNumber || '—')}</td>
     <td>${esc(fmtDate(r.checkInDate))} → ${esc(fmtDate(r.checkOutDate))}</td>
@@ -355,7 +355,7 @@ function renderPayments() {
   $('paymentCount').textContent = items.length;
   $('paymentsEmpty').hidden = items.length !== 0;
   $('paymentsBody').innerHTML = items.map((p) => `<tr>
-    <td><strong>${esc(p.invoiceNumber)}</strong></td>
+    <td><strong class="mono">${esc(p.invoiceNumber)}</strong></td>
     <td>${esc(p.reservation?.reservationCode || '—')}<span class="cell-sub">${esc(guestName(p.reservation?.guest))}</span></td>
     <td class="money">${fmtMoney(p.amount)}</td>
     <td>${esc(p.method || '—')}</td>
