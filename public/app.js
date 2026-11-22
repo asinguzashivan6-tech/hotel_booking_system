@@ -72,7 +72,12 @@ function showApp() {
   $('loginView').style.display = 'none';
   $('appView').hidden = false;
   applyRoleVisibility();
-  $('currentUserBadge').textContent = `${state.user?.fullName || state.user?.email || 'User'} (${state.user?.role || '—'})`;
+  const name = state.user?.fullName || state.user?.email || 'User';
+  const role = state.user?.role || 'user';
+  const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0].toUpperCase()).join('') || 'U';
+  if ($('userAvatar')) $('userAvatar').textContent = initials;
+  if ($('userName')) $('userName').textContent = name;
+  if ($('userRoleBadge')) $('userRoleBadge').textContent = role.charAt(0).toUpperCase() + role.slice(1);
 }
 
 function canAccess(rolesStr) {

@@ -50,8 +50,17 @@
           </div>
         </div>
         <div class="header-actions">
-          <span id="currentUserBadge" class="api-pill">Signed in</span>
-          <button type="button" class="btn btn-ghost" id="refreshBtn">Refresh</button>
+          <div id="currentUserBadge" class="user-chip" aria-label="Signed in user">
+            <span class="user-avatar" id="userAvatar">U</span>
+            <span class="user-chip-info">
+              <span class="user-chip-name" id="userName">Signed in</span>
+              <span class="user-chip-role" id="userRoleBadge">Role</span>
+            </span>
+          </div>
+          <button type="button" class="btn btn-outline-light" id="refreshBtn">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+            <span>Refresh</span>
+          </button>
           <button type="button" class="btn btn-danger" id="logoutBtn">Logout</button>
         </div>
       </div>

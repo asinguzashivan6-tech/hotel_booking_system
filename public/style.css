@@ -75,8 +75,17 @@ code { background: #eef4ff; border: 1px solid #dbe7ff; border-radius: 6px; paddi
 .eyebrow { color: rgba(255,255,255,.82); margin-bottom: 4px; }
 .brand h1, .login-brand h1 { font-family: "Fraunces", Georgia, serif; font-size: clamp(1.35rem, 2.2vw, 1.95rem); line-height: 1.15; margin-bottom: 4px; font-weight: 600; }
 .brand-subtitle { color: rgba(255,255,255,.86); font-size: .94rem; }
-.header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .api-pill { font-size: .75rem; font-weight: 700; padding: 7px 11px; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.12); }
+.user-chip { display: inline-flex; align-items: center; gap: 10px; padding: 4px 10px 4px 4px; border-radius: 12px; background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18); }
+.user-avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: .78rem; font-weight: 800; color: #0f2747; background: #fff; border: 2px solid rgba(255,255,255,.45); flex: 0 0 34px; }
+.user-chip-info { display: flex; flex-direction: column; line-height: 1.15; }
+.user-chip-name { font-size: .85rem; font-weight: 700; color: #fff; white-space: nowrap; }
+.user-chip-role { display: inline-flex; align-self: flex-start; margin-top: 3px; padding: 2px 8px; border-radius: 999px; font-size: .67rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: #dbeafe; background: rgba(37,99,235,.35); border: 1px solid rgba(147,197,253,.35); }
+.btn-icon { width: 16px; height: 16px; display: block; flex: 0 0 16px; }
+.btn-outline-light { color: #fff; background: transparent; border-color: rgba(255,255,255,.45); min-height: 42px; }
+.btn-outline-light:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.7); }
+.header-actions .btn-danger { min-height: 42px; }
 
 /* App layout / Sidebar */
 .app-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 20px; align-items: start; padding: 24px 0 0; }
@@ -105,17 +114,24 @@ code { background: #eef4ff; border: 1px solid #dbe7ff; border-radius: 6px; paddi
 .btn:hover { transform: translateY(-1px); }
 .btn:active { transform: translateY(0); }
 .btn:focus-visible { outline: none; box-shadow: var(--ring); }
-.btn-primary { color: #fff; background: linear-gradient(180deg, #2d6df0, #1f5fe0); border-color: #1f5fe0; box-shadow: 0 6px 16px rgba(37,99,235,.22); }
-.btn-ghost { color: #334155; background: #fff; border-color: var(--line); }
-.card .btn-ghost { color: #1d4ed8; background: #eaf1ff; border-color: #d7e5ff; }
+.btn-primary { color: #fff; background: #1d4ed8; border-color: #1d4ed8; box-shadow: 0 4px 12px rgba(29,78,216,.2); }
+.btn-primary:hover { background: #1e40af; border-color: #1e40af; }
+.btn-ghost { color: #fff; background: #475569; border-color: #475569; }
+.btn-ghost:hover { background: #334155; border-color: #334155; }
 .app-header .btn-ghost { color: #fff; background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); }
-.btn-danger { color: #fff; background: linear-gradient(180deg, #e03a3a, #c62828); border-color: #c62828; }
-.btn-small { padding: 6px 9px; font-size: .76rem; border-radius: 8px; box-shadow: none; }
-.btn-edit { background: #eaf2ff; color: #1d4ed8; border-color: #cfe0ff; }
-.btn-info { background: #eef2ff; color: #4338ca; border-color: #dde3ff; }
-.btn-success { background: #eafaf0; color: #166534; border-color: #cfead8; }
-.btn-warn { background: #fff4db; color: #92400e; border-color: #f3dfab; }
-.btn-delete { background: #fdeeee; color: #b91c1c; border-color: #f7d6d6; }
+.btn-danger { color: #fff; background: #dc2626; border-color: #dc2626; }
+.btn-danger:hover { background: #b91c1c; border-color: #b91c1c; }
+.btn-small { padding: 7px 10px; font-size: .76rem; border-radius: 8px; box-shadow: none; min-height: 34px; }
+.btn-edit { background: #2563eb; color: #fff; border-color: #2563eb; }
+.btn-edit:hover { background: #1d4ed8; border-color: #1d4ed8; }
+.btn-info { background: #0f766e; color: #fff; border-color: #0f766e; }
+.btn-info:hover { background: #115e59; border-color: #115e59; }
+.btn-success { background: #15803d; color: #fff; border-color: #15803d; }
+.btn-success:hover { background: #166534; border-color: #166534; }
+.btn-warn { background: #b45309; color: #fff; border-color: #b45309; }
+.btn-warn:hover { background: #92400e; border-color: #92400e; }
+.btn-delete { background: #dc2626; color: #fff; border-color: #dc2626; }
+.btn-delete:hover { background: #b91c1c; border-color: #b91c1c; }
 
 /* Layout */
 .page { padding: 24px 0 40px; }
