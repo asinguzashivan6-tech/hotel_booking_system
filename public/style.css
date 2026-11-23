@@ -77,7 +77,7 @@ code { background: #eef4ff; border: 1px solid #dbe7ff; border-radius: 6px; paddi
 .brand-subtitle { color: rgba(255,255,255,.86); font-size: .94rem; }
 .header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .api-pill { font-size: .75rem; font-weight: 700; padding: 7px 11px; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.12); }
-.user-chip { display: inline-flex; align-items: center; gap: 10px; padding: 4px 10px 4px 4px; border-radius: 12px; background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18); }
+.user-chip { display: inline-flex; align-items: center; gap: 10px; padding: 4px 4px 4px 0; border-radius: 12px; background: transparent; border: none; }
 .user-avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: .78rem; font-weight: 800; color: #0f2747; background: #fff; border: 2px solid rgba(255,255,255,.45); flex: 0 0 34px; }
 .user-chip-info { display: flex; flex-direction: column; line-height: 1.15; }
 .user-chip-name { font-size: .85rem; font-weight: 700; color: #fff; white-space: nowrap; }
