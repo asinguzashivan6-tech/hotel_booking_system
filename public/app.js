@@ -548,7 +548,7 @@ function bindEvents() {
       const id = $('roomTypeId').value;
       if (id) await api(`/room-types/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
       else await api('/room-types', { method: 'POST', body: JSON.stringify(payload) });
-      toast(`Room type ${id ? 'updated' : 'created'}`, 'success');
+      toast(`Room type ${id ? 'updated' : 'created'} successfully`, 'success');
       resetRoomTypeForm();
       await loadAll();
     } catch (err) { toast(err.message, 'error'); }
@@ -570,7 +570,7 @@ function bindEvents() {
       // housekeeping/frontdesk might only be allowed to update certain fields server-side; send all for admin, minimal for others
       if (id) await api(`/rooms/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
       else await api('/rooms', { method: 'POST', body: JSON.stringify(payload) });
-      toast(`Room ${id ? 'updated' : 'created'}`, 'success');
+      toast(`Room ${id ? 'updated' : 'created'} successfully`, 'success');
       resetRoomForm();
       await loadAll();
     } catch (err) { toast(err.message, 'error'); }
@@ -594,7 +594,7 @@ function bindEvents() {
       const id = $('guestId').value;
       if (id) await api(`/guests/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
       else await api('/guests', { method: 'POST', body: JSON.stringify(payload) });
-      toast(`Guest ${id ? 'updated' : 'created'}`, 'success');
+      toast(`Guest ${id ? 'updated' : 'created'} successfully`, 'success');
       resetGuestForm();
       await loadAll();
     } catch (err) { toast(err.message, 'error'); }
@@ -618,7 +618,7 @@ function bindEvents() {
       const id = $('reservationId').value;
       if (id) await api(`/reservations/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
       else await api('/reservations', { method: 'POST', body: JSON.stringify(payload) });
-      toast(`Reservation ${id ? 'updated' : 'created'}`, 'success');
+      toast(`Reservation ${id ? 'updated' : 'created'} successfully`, 'success');
       resetReservationForm();
       await loadAll();
     } catch (err) { toast(err.message, 'error'); }
@@ -656,7 +656,7 @@ function bindEvents() {
       const id = $('paymentId').value;
       if (id) await api(`/payments/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
       else await api('/payments', { method: 'POST', body: JSON.stringify(payload) });
-      toast(`Payment ${id ? 'updated' : 'created'}`, 'success');
+      toast(`Payment ${id ? 'updated' : 'created'} successfully`, 'success');
       resetPaymentForm();
       await loadAll();
     } catch (err) { toast(err.message, 'error'); }
@@ -677,7 +677,7 @@ function bindEvents() {
       const id = $('taskId').value;
       if (id) await api(`/housekeeping/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
       else await api('/housekeeping', { method: 'POST', body: JSON.stringify(payload) });
-      toast(`Task ${id ? 'updated' : 'created'}`, 'success');
+      toast(`Housekeeping task ${id ? 'updated' : 'created'} successfully`, 'success');
       resetTaskForm();
       await loadAll();
     } catch (err) { toast(err.message, 'error'); }
@@ -701,7 +701,7 @@ function bindEvents() {
       if (!id && !pw) throw new Error('Password is required for new user');
       if (id) await api(`/users/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
       else await api('/users', { method: 'POST', body: JSON.stringify(payload) });
-      toast(`User ${id ? 'updated' : 'created'}`, 'success');
+      toast(`Staff account ${id ? 'updated' : 'created'} successfully`, 'success');
       resetUserForm();
       await loadAll();
     } catch (err) { toast(err.message, 'error'); }
@@ -721,7 +721,7 @@ function bindEvents() {
       const id = $('feedbackId').value;
       if (id) await api(`/feedback/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
       else await api('/feedback', { method: 'POST', body: JSON.stringify(payload) });
-      toast(`Feedback ${id ? 'updated' : 'saved'}`, 'success');
+      toast(`Feedback ${id ? 'updated' : 'created'} successfully`, 'success');
       resetFeedbackForm();
       await loadAll();
     } catch (err) { toast(err.message, 'error'); }
@@ -744,7 +744,7 @@ function bindEvents() {
         switchTab('roomTypes');
       }
       if (action === 'delete-roomtype' && await confirmAction('Delete this room type?')) {
-        await api(`/room-types/${id}`, { method: 'DELETE' }); toast('Room type deleted', 'success'); await loadAll();
+        await api(`/room-types/${id}`, { method: 'DELETE' }); toast('Room type deleted successfully', 'success'); await loadAll();
       }
 
       if (action === 'edit-room') {
@@ -755,7 +755,7 @@ function bindEvents() {
         switchTab('rooms');
       }
       if (action === 'delete-room' && await confirmAction('Delete this room?')) {
-        await api(`/rooms/${id}`, { method: 'DELETE' }); toast('Room deleted', 'success'); await loadAll();
+        await api(`/rooms/${id}`, { method: 'DELETE' }); toast('Room deleted successfully', 'success'); await loadAll();
       }
 
       if (action === 'edit-guest') {
@@ -767,7 +767,7 @@ function bindEvents() {
         switchTab('guests');
       }
       if (action === 'delete-guest' && await confirmAction('Delete this guest?')) {
-        await api(`/guests/${id}`, { method: 'DELETE' }); toast('Guest deleted', 'success'); await loadAll();
+        await api(`/guests/${id}`, { method: 'DELETE' }); toast('Guest deleted successfully', 'success'); await loadAll();
       }
 
       if (action === 'edit-reservation') {
@@ -782,7 +782,7 @@ function bindEvents() {
         switchTab('reservations');
       }
       if (action === 'delete-reservation' && await confirmAction('Delete/cancel this reservation?')) {
-        await api(`/reservations/${id}`, { method: 'DELETE' }); toast('Reservation removed/cancelled', 'success'); await loadAll();
+        await api(`/reservations/${id}`, { method: 'DELETE' }); toast('Reservation cancelled/removed successfully', 'success'); await loadAll();
       }
       if (action === 'checkin-reservation') {
         await api(`/reservations/${id}/check-in`, { method: 'PATCH' }); toast('Checked in successfully', 'success'); await loadAll();
@@ -796,7 +796,9 @@ function bindEvents() {
       }
       if (action === 'delete-service') {
         const resId = btn.dataset.resId; const serviceId = btn.dataset.serviceId;
-        await api(`/reservations/${resId}/services/${serviceId}`, { method: 'DELETE' }); toast('Service charge removed', 'success'); await loadAll(); state.selectedReservationForServices = resId; renderServiceCharges();
+        if (await confirmAction('Remove this service charge?')) {
+          await api(`/reservations/${resId}/services/${serviceId}`, { method: 'DELETE' }); toast('Service charge removed successfully', 'success'); await loadAll(); state.selectedReservationForServices = resId; renderServiceCharges();
+        }
       }
 
       if (action === 'edit-payment') {
@@ -807,7 +809,7 @@ function bindEvents() {
         switchTab('payments');
       }
       if (action === 'void-payment' && await confirmAction('Void this invoice/payment?')) {
-        await api(`/payments/${id}`, { method: 'DELETE' }); toast('Invoice voided', 'success'); await loadAll();
+        await api(`/payments/${id}`, { method: 'DELETE' }); toast('Invoice voided successfully', 'success'); await loadAll();
       }
 
       if (action === 'edit-task') {
@@ -818,7 +820,7 @@ function bindEvents() {
         switchTab('housekeeping');
       }
       if (action === 'delete-task' && await confirmAction('Delete this housekeeping task?')) {
-        await api(`/housekeeping/${id}`, { method: 'DELETE' }); toast('Task deleted', 'success'); await loadAll();
+        await api(`/housekeeping/${id}`, { method: 'DELETE' }); toast('Housekeeping task deleted successfully', 'success'); await loadAll();
       }
 
       if (action === 'edit-user') {
@@ -829,7 +831,7 @@ function bindEvents() {
         switchTab('users');
       }
       if (action === 'delete-user' && await confirmAction('Deactivate this user account?')) {
-        await api(`/users/${id}`, { method: 'DELETE' }); toast('User deactivated', 'success'); await loadAll();
+        await api(`/users/${id}`, { method: 'DELETE' }); toast('Staff account deactivated successfully', 'success'); await loadAll();
       }
 
       if (action === 'edit-feedback') {
@@ -840,7 +842,7 @@ function bindEvents() {
         switchTab('feedback');
       }
       if (action === 'delete-feedback' && await confirmAction('Delete this feedback?')) {
-        await api(`/feedback/${id}`, { method: 'DELETE' }); toast('Feedback deleted', 'success'); await loadAll();
+        await api(`/feedback/${id}`, { method: 'DELETE' }); toast('Feedback deleted successfully', 'success'); await loadAll();
       }
     } catch (err) { toast(err.message, 'error'); }
   });
